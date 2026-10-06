@@ -11,8 +11,47 @@ import '../styles/index.css'
 // components
 import Home from './components/Home';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Home/>
-  </React.StrictMode>,
-)
+let counter = 0;
+let timerId = null;
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+function renderApp () {
+  root.render(
+    <React.StrictMode>
+      <Home 
+      seconds = {counter}
+      onPause = {handlePause}
+      onResume = {handleResume}
+      onReset = {handleReset}      
+      />
+
+    </React.StrictMode>
+);
+}
+
+function handleResume() {
+  if (!timerId) {
+    timerId = setInterval(() => {
+      counter++;
+      renderApp();
+    }, 1000);
+  }
+}
+
+function handlePause() {
+  clearInterval(timerId);
+  timerId = null;
+}
+
+function handleReset() {
+  counter = 0;
+  renderApp();
+}
+
+handleResume();
+  
+
+
+
+
