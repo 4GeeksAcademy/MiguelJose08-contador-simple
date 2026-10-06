@@ -13,6 +13,7 @@ import Home from './components/Home';
 
 let counter = 0;
 let timerId = null;
+const targetTime = 10;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -35,7 +36,12 @@ function handleResume() {
     timerId = setInterval(() => {
       counter++;
       renderApp();
+      if (counter === targetTime) {
+        alert("Has alcanzado tu tiempo!!")
+        handlePause();
+      }
     }, 1000);
+
   }
 }
 
